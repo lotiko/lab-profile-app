@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs");
 // require the user model !!!!
 const User = require("../models/User.model");
 
+
 authRoutes.post("/signup", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -63,9 +64,9 @@ authRoutes.post("/signup", (req, res, next) => {
 // routes/auth-routes.js
 
 authRoutes.post("/login", (req, res, next) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  User.findOne({ email })
+  User.findOne({ username })
     .then((user) => {
       if (!user) {
         return next(new Error("No user with that email"));
@@ -100,7 +101,18 @@ authRoutes.get("/loggedin", (req, res, next) => {
   res.status(403).json({ message: "Unauthorized" });
 });
 authRoutes.post("/edit",(req,res,next)=>{
-  res.status(200).json({message:'edit message'})
+  const {username, campus , course, _id}=req.body
+  console.log(username,campus)
+  console.log(req.session.currentUser._id);
+  if(!req.session.currentUser){
+    res.status(404).json({message:"not found"})
+  }
+  User.findOneAndUpdate({_id:req.session.currentUser._id},{username, campus, course},{new:true})
+  .then(updateduser => {
+
+    res.status(200).json(updateduser)
+  })
+  .catch(error => next(error));
 })
 
 module.exports = authRoutes;
