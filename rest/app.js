@@ -8,7 +8,7 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
-const index = require("./routes/index");
+const index = require("./routes/auth.routes");
 const session = require("express-session");
 const authRoutes = require("./routes/auth-routes");
 
@@ -69,8 +69,8 @@ app.use(
   })
 );
 
-const index = require('./routes/index');
-app.use('/', index);
+const auth = require('./routes/auth.routes');
+app.use('/auth', auth);
 
 
 module.exports = app;
