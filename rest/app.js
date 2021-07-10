@@ -8,9 +8,9 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
-const index = require("./routes/auth.routes");
+
 const session = require("express-session");
-const authRoutes = require("./routes/auth-routes");
+const authRoutes = require("./routes/auth.routes");
 
 mongoose
   .connect('mongodb://localhost/rest', {useNewUrlParser: true,useUnifiedTopology: true})
