@@ -5,19 +5,19 @@ import Button from '../Button';
 
 class Signup extends Component {
   state = {
-    user: {
+    
       username: '',
       password: '',
       campus: '',
       course: '',
       image: '',
-    },
+    
   };
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-
-    signup(this.state.user)
+    console.log(this.state);
+    signup(this.state)
       .then((response) => {
         this.setState({ username: '', password: '' });
         // this.props.updateUser(response)
@@ -28,7 +28,7 @@ class Signup extends Component {
   // HERE
   handleChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ user: { [name]: value } });
+    this.setState({ [name]: value } );
   };
 
   render() {
@@ -49,6 +49,7 @@ class Signup extends Component {
           <label>
             Password:
             <input
+              type="password"
               name="password"
               value={this.state.password}
               onChange={(e) => this.handleChange(e)}
